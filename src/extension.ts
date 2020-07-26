@@ -171,6 +171,11 @@ export function formatted(textP: string): string {
         // decrease end line
         // https://github.com/sumnow/markdown-formatter/issues/24
         text = text.replace(END_LINE_EXP, '\n')
+        
+        // latex
+        text = text.replace(/\ *\$([^\$\n]+)\$\ */g, ' $$$1$$ ');
+        text = text.replace(/\$ +\n/g, '$$\n');
+        text = text.replace(/\n +\$/g, '\n$$');
     } catch (e) {
         text = textLast
         vscode.window.showInformationMessage(`[Error Format]:${e} \n you can ask for help by https://github.com/sumnow/markdown-formatter/issues`);
